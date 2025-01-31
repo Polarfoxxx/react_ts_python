@@ -12,9 +12,9 @@ app.add_middleware(
 )
 
 @app.get("/api/overit")
-async def overit(dialog: str = None):
-    if dialog:
+async def overit(cardNumber: str = None):
+    if cardNumber:
         # Spracovanie prijatého čísla
-        return {"stav": "úspech", "zadané_číslo": dialog}
+        return {"stav": "úspech", "zadané_číslo": cardNumber}
     else:
         return {"stav": "chyba", "správa": "Žiadne číslo nebolo zadané"}

@@ -10,12 +10,13 @@ const LoginForm = () => {
 
     useEffect(() => {
         const params = new URLSearchParams(location.search);
-        const dialogParam = params.get('dialog');
-        if (dialogParam) {
-            setSubmittedNumber(dialogParam);
-
+        const cardNumberParam = params.get('cardNumber');
+        if (cardNumberParam) {
+            setSubmittedNumber(cardNumberParam);
+            console.log('Odosielam na backend:', cardNumberParam);
+            
             // Odoslanie na backend
-            fetch(`http://localhost:8000/api/overit?dialog=${encodeURIComponent(dialogParam)}`)
+            fetch(`http://localhost:8000/api/overit?cardNumber=${encodeURIComponent(cardNumberParam)}`)
                 .then((response) => response.json())
                 .then((data) => {
                     setResponseData(data);
@@ -29,7 +30,7 @@ const LoginForm = () => {
     const handleSubmit = (event: any) => {
         event.preventDefault();
         if (cardNumber.trim() !== '') {
-            navigate(`/drm/login?dialog=${encodeURIComponent(cardNumber)}`);
+            navigate(`/drm/login?cardNumber=${encodeURIComponent(cardNumber)}`);
         } else {
             alert('Prosím, zadajte číslo.');
         }
