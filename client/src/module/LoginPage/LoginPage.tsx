@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const LoginForm = () => {
-    const [cardNumber, setCardNumber] = useState('');
-    const [submittedNumber, setSubmittedNumber] = useState<any>(null);
-    const [responseData, setResponseData] = useState(null);
+    const [cardNumber, setCardNumber] = React.useState('');
+    const [showFormular, setShowFormular] = React.useState<boolean>(false);
     const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const cardNumberParam = params.get('cardNumber');
-        if (cardNumberParam) {
-            setSubmittedNumber(cardNumberParam);
-            console.log('Odosielam na backend:', cardNumberParam);
-            
-            // Odoslanie na backend
-            fetch(`http://localhost:8000/api/overit?cardNumber=${encodeURIComponent(cardNumberParam)}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    setResponseData(data);
-                })
-                .catch((error) => {
-                    console.error('Chyba:', error);
-                });
-        }
-    }, [location.search]);
+    React.useEffect(() => {
+        const currentUrl = window.location.href;
+        console.log(currentUrl);
+        const hasDialog = new URLSearchParams(window.location.search).get("dialog") === "cardNumber";
+        setShowFormular(hasDialog);
+    }, []);
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
         if (cardNumber.trim() !== '') {
-            navigate(`/drm/login?cardNumber=${encodeURIComponent(cardNumber)}`);
+            fetch(`http://localhost:8000/drm/login?dialog=${encodeURIComponent(cardNumber)}`, {
+                method: 'GET'
+            }).then(response => response.json()) // Prečítaj JSON telo odpovede
+                .then(data => {
+                    if(data.findNumber === "true") {
+                        navigate('/drm/home');
+                    }else {
+                        alert('Číslo sa nenašlo.');
+                    }
+                }) 
+                .catch(error => console.error("Error:", error));
         } else {
             alert('Prosím, zadajte číslo.');
         }
@@ -38,18 +35,11 @@ const LoginForm = () => {
 
     return (
         <div>
-            {submittedNumber ? (
+            {!showFormular ? (
                 <div>
-                    <h2>Vaše číslo bolo odoslané:</h2>
-                    <p>{submittedNumber}</p>
-                    {responseData ? (
-                        <div>
-                            <h3>Odpoveď z backendu:</h3>
-                            <pre>{JSON.stringify(responseData, null, 2)}</pre>
-                        </div>
-                    ) : (
-                        <p>Načítavam údaje z backendu...</p>
-                    )}
+                    <h1>
+                        Please login
+                    </h1>
                 </div>
             ) : (
                 <div>

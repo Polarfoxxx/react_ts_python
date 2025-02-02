@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -11,10 +11,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/api/overit")
-async def overit(cardNumber: str = None):
-    if cardNumber:
-        # Spracovanie prijatého čísla
-        return {"stav": "úspech", "zadané_číslo": cardNumber}
-    else:
-        return {"stav": "chyba", "správa": "Žiadne číslo nebolo zadané"}
+
+@app.get("/drm/login")
+async def overit(dialog: int = None):
+    if dialog is None:
+        return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
+
+    try:
+        with open("./card_number_list.txt", "r") as file:
+            for line in file:
+                if dialog == int(line.strip()):
+                    return {"findNumber": "true", "message": "Number is in DB"}
+    except ValueError:
+        return {"findNumber": "false", "message": "Invalid number format in file"}
+
+    # Ak číslo nebolo nájdené
+    return {"findNumber": "nok", "message": "Number not found"}
