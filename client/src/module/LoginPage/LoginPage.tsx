@@ -1,12 +1,11 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginForm = () => {
     const [cardNumber, setCardNumber] = React.useState('');
     const navigate = useNavigate();
-    const location = useLocation();
-    const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC;
+   /*  const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC; */
     const apiUrl_localle = process.env.REACT_APP_API_URL_LOCAL;
     const backEnd_URL = `${apiUrl_localle}`;
     

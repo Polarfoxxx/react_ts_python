@@ -10,7 +10,7 @@ function ShowVzByURL() {
     React.useEffect(() => {
         const category = searchParams.get('dialogVZ');
         setVZNumber(category || '');
-    }, [location]);
+    }, [searchParams]);
 
     return (
         <div>

@@ -6,7 +6,7 @@ function Home(): JSX.Element {
     const navigate = useNavigate();
     const [VZNumber, setCardNumber] = React.useState('');
     const [OPNumber, setOPNumber] = React.useState('');
-    const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC;
+    /* const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC; */
     const apiUrl_localle = process.env.REACT_APP_API_URL_LOCAL;
     const backEnd_URL = `${apiUrl_localle}`;
 
