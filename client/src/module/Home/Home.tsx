@@ -8,7 +8,7 @@ function Home(): JSX.Element {
     const [OPNumber, setOPNumber] = React.useState('');
     const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC;
     const apiUrl_localle = process.env.REACT_APP_API_URL_LOCAL;
-    const backEnd_URL = `${apiUrl_public}`;
+    const backEnd_URL = `${apiUrl_localle}`;
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();

@@ -12,9 +12,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def hi(dialog: int = None):
+    return {"message": "Hello World"}
+
 
 @app.get("/drm/welcome")
 async def overit(dialog: int = None):
+    print(dialog)
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
 
