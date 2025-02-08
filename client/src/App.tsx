@@ -1,25 +1,24 @@
 import React from 'react';
 import './App.css';
-import { LoginForm, WelcomePage, Home } from './module';
-import { Route, Routes } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
+import { WelcomePage, Home } from './module';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
-    navigate('/drm/login');
-  }, []);
+    if (location.pathname === '/') {
+      navigate('/drm/welcome');  // Presmeruj len ak si na root stránke
+    }
+  }, [location.pathname, navigate]);
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/drm/login" Component={WelcomePage} />
-        <Route path="/drm/login?dialog=cardNumber" Component={LoginForm} />
-        <Route path="/drm/home" Component={Home} />
+        <Route path="/drm/welcome" element={<WelcomePage />} />
+        <Route path="/drm/home" element={<Home />} />
       </Routes>
-      <LoginForm />
     </div>
   );
 }

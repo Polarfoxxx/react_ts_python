@@ -1,23 +1,25 @@
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LoginForm } from '../LoginPage';
 
-
-function WelcomePage(): JSX.Element {
+const WelcomePage = () => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
-    const handleLoginPage = () => {
-        navigate('/drm/login?dialog=cardNumber');
-    };
+    const showLoginForm = React.useMemo(() => {
+        return searchParams.get("dialog") === "cardNumber";
+    }, [searchParams]);
 
     return (
         <div>
-            <h1>Welcome to the React Starter Kit</h1>
-            <p>
-                This is a boilerplate project for building React applications with
-                TypeScript, Webpack, and Babel.
-            </p>
-            <button onClick={handleLoginPage}>Login page</button>
+            <h1>Vitajte!</h1>
+            <button onClick={() => navigate('/drm/welcome?dialog=cardNumber')}>
+                Prihlásiť sa
+            </button>
+            {/* Ak máme ?dialog=cardNumber, zobrazíme LoginForm */}
+            {showLoginForm && <LoginForm />}
         </div>
     );
-}
+};
 
 export default WelcomePage;

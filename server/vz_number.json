@@ -1,0 +1,19 @@
+{
+    "emp_details": [
+      {
+        "VZ": "12345",
+        "OP": "10",
+        "state": "proces"
+      },
+      {
+        "VZ": "56789",
+        "OP": "20",
+        "state": "proces"
+      },
+      {
+        "VZ": "14789",
+        "OP": "30",
+        "state": "proces"
+      }
+    ]
+  }
