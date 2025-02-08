@@ -8,13 +8,13 @@ function Home(): JSX.Element {
     const [OPNumber, setOPNumber] = React.useState('');
     const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC;
     const apiUrl_localle = process.env.REACT_APP_API_URL_LOCAL;
-    const current_URL = `${apiUrl_public}`;
+    const backEnd_URL = `${apiUrl_public}`;
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const current_URL = `/drm/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`
         navigate(current_URL)
-        fetch(`${current_URL}${current_URL}`, {
+        fetch(`${backEnd_URL}${current_URL}`, {
             method: 'GET'
         }).then(response => response.json()) // Prečítaj JSON telo odpovede
             .then(data => {

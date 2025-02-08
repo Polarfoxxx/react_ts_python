@@ -8,12 +8,12 @@ const LoginForm = () => {
     const location = useLocation();
     const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC;
     const apiUrl_localle = process.env.REACT_APP_API_URL_LOCAL;
-    const current_URL = `${apiUrl_public}`;
+    const backEnd_URL = `${apiUrl_public}`;
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         if (cardNumber.trim() !== '') {
-            fetch(`${current_URL}/welcome?dialog=${encodeURIComponent(cardNumber)}`, {
+            fetch(`${backEnd_URL}/welcome?dialog=${encodeURIComponent(cardNumber)}`, {
                 method: 'GET'
             }).then(response => response.json()) // Prečítaj JSON telo odpovede
                 .then(data => {
