@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import json
+from db import connect_to_db
 
 app = FastAPI()
 
@@ -12,6 +13,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 async def hi(dialog: int = None):
     return {"message": "Hello World"}
@@ -19,15 +21,13 @@ async def hi(dialog: int = None):
 
 @app.get("/drm/welcome")
 async def overit(dialog: int = None):
-    print(dialog)
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
 
     try:
-        with open("./card_number_list.txt", "r") as file:
-            for line in file:
-                if dialog == int(line.strip()):
-                    return {"findNumber": "true", "message": "Number is in DB"}
+        card_number = await connect_to_db(dialog)
+        if card_number:
+            return {"findNumber": "true", "message": "Number found"}
     except ValueError:
         return {"findNumber": "false", "message": "Invalid number format in file"}
 
