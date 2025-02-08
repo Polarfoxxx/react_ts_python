@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from db import connect_to_db
-
 app = FastAPI()
 
 # Povolenie CORS pre frontend na http://localhost:3000
@@ -13,7 +12,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/")
 async def hi(dialog: int = None):
     return {"message": "Hello World"}
@@ -23,7 +21,6 @@ async def hi(dialog: int = None):
 async def overit(dialog: int = None):
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
-
     try:
         card_number = await connect_to_db(dialog)
         if card_number:

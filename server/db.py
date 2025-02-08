@@ -1,8 +1,11 @@
 import pymongo
 import asyncio
+import os
+from dotenv import load_dotenv, dotenv_values 
+load_dotenv() 
 
 async def connect_to_db(card: int) -> bool:
-    client = pymongo.MongoClient("mongodb+srv://suchovskymichal:z1PzyPDoR80XCXKN@cluster0.jhfpd8u.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+    client = pymongo.MongoClient(os.getenv("MY_MONGO_CONNECTION_STRING"))
     db = client["PythonServer"]
     collection = db["cardNumber"]
 
@@ -12,5 +15,4 @@ async def connect_to_db(card: int) -> bool:
     if result is not None:
         stored_card_number = result.get("cardNumber")
         return stored_card_number == card
-    
     return False
