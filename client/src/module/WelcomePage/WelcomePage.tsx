@@ -12,12 +12,17 @@ const WelcomePage = () => {
 
     return (
         <div>
-            <h1>Vitajte!</h1>
-            <button onClick={() => navigate('/drm/welcome?dialog=cardNumber')}>
-                Prihlásiť sa
-            </button>
-            {/* Ak máme ?dialog=cardNumber, zobrazíme LoginForm */}
-            {showLoginForm && <LoginForm />}
+            {
+                showLoginForm ?
+                    <LoginForm />
+                    :
+                    <div>
+                        <h1>Vitajte!</h1>
+                        <button onClick={() => navigate('/drm/welcome?dialog=cardNumber')}>
+                            Prihlásiť sa
+                        </button>
+                    </div>
+            }
         </div>
     );
 };

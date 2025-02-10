@@ -1,24 +1,25 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../shared';
+import { LoadSpinner } from '../shared';
 
 
 const LoginForm = () => {
     const [cardNumber, setCardNumber] = React.useState('');
+    const [loginSpinnerShow, setLoginSpinnerShow] = React.useState(false);
     const navigate = useNavigate();
-   /*  const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC; */
-    const apiUrl_localle = process.env.REACT_APP_API_URL_LOCAL;
-    const backEnd_URL = `${apiUrl_localle}`;
-    
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         if (cardNumber.trim() !== '') {
-            fetch(`${backEnd_URL}/drm/welcome?dialog=${encodeURIComponent(cardNumber)}`, {
+            setLoginSpinnerShow(true);
+            fetch(`${API_URL}/drm/welcome?dialog=${encodeURIComponent(cardNumber)}`, {
                 method: 'GET'
             }).then(response => response.json()) // Prečítaj JSON telo odpovede
                 .then(data => {
                     console.log(data);
                     if (data.findNumber === "true") {
+                        setLoginSpinnerShow(false);
                         navigate('/drm/home');
                     } else {
                         alert('Číslo sa nenašlo.');
@@ -46,6 +47,11 @@ const LoginForm = () => {
                     <button type="submit">Odoslať</button>
                 </form>
             </div>
+            {
+                loginSpinnerShow &&
+                <LoadSpinner load_Spinner={loginSpinnerShow} />
+            }
+
         </div>
     );
 };

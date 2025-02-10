@@ -1,20 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShowVzByURL } from '../ShowVZbyURL';
+import { API_URL } from '../shared';
 
 function Home(): JSX.Element {
     const navigate = useNavigate();
     const [VZNumber, setCardNumber] = React.useState('');
     const [OPNumber, setOPNumber] = React.useState('');
-    /* const apiUrl_public = process.env.REACT_APP_API_URL_PUBLIC; */
-    const apiUrl_localle = process.env.REACT_APP_API_URL_LOCAL;
-    const backEnd_URL = `${apiUrl_localle}`;
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         const current_URL = `/drm/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`
         navigate(current_URL)
-        fetch(`${backEnd_URL}${current_URL}`, {
+        fetch(`${API_URL}${current_URL}`, {
             method: 'GET'
         }).then(response => response.json()) // Prečítaj JSON telo odpovede
             .then(data => {

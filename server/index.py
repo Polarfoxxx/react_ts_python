@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import json
+import time
 from db import connect_to_db
 app = FastAPI()
 
@@ -19,6 +20,7 @@ async def hi(dialog: int = None):
 
 @app.get("/drm/welcome")
 async def overit(dialog: int = None):
+    time.sleep(5)
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
     try:
