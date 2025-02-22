@@ -3,21 +3,21 @@ import './App.css';
 import { WelcomePage, Home } from './module';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
-function App() {
+function App(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
 
   React.useEffect(() => {
     if (location.pathname === '/') {
-      navigate('/drm/welcome');  // Presmeruj len ak si na root stránke
+      navigate('/fxb/welcome');  // Presmeruj len ak si na root stránke
     }
   }, [location.pathname, navigate]);
 
   return (
-    <div className="App">
+    <div className="app">
       <Routes>
-        <Route path="/drm/welcome" element={<WelcomePage />} />
-        <Route path="/drm/home" element={<Home />} />
+        <Route path="/fxb/welcome" element={<WelcomePage />} />
+        <Route path="/fxb/home" element={<Home />} />
       </Routes>
     </div>
   );

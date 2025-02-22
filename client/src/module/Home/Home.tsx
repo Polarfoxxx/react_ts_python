@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShowVzByURL } from '../ShowVZbyURL';
 import { API_URL } from '../shared';
+import { AddTransaction, DedTransaction } from './Transaction';
+import { ListTransaction } from './ListTransaction';
 
 function Home(): JSX.Element {
     const navigate = useNavigate();
@@ -10,7 +12,7 @@ function Home(): JSX.Element {
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
-        const current_URL = `/drm/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`
+        const current_URL = `/fxb/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`
         navigate(current_URL)
         fetch(`${API_URL}${current_URL}`, {
             method: 'GET'
@@ -23,33 +25,21 @@ function Home(): JSX.Element {
 
     return (
         <div>
-            <h1>Home</h1>
-            <h2>Zadajte čisli zakazky</h2>
             <div>
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Číslo VZ:
-                        <input
-                            type="text"
-                            value={VZNumber}
-                            onChange={(e) => setCardNumber(e.target.value)} />
-                    </label>
-                    <br />
-                    <br />
-                    <label>
-                        Číslo OP:
-                        <input
-                            type="text"
-                            value={OPNumber}
-                            onChange={(e) => setOPNumber(e.target.value)} />
-                    </label>
-                    <br />
-                    <br />
-                    <button type="submit">Odoslať</button>
-                </form>
+                <h1>Home</h1>
             </div>
             <div>
-                <ShowVzByURL />
+                <div>
+                    <div>
+                        <AddTransaction />
+                    </div>
+                    <div>
+                        <DedTransaction />
+                    </div>
+                </div>
+                <div>
+                    <ListTransaction />
+                </div>
             </div>
         </div>
     );

@@ -1,39 +1,66 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import time
 from db import connect_to_db
+from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import JSONResponse
+from starlette.requests import Request
+
 app = FastAPI()
 
-# Povolenie CORS pre frontend na http://localhost:3000
+origins = [
+    "http://localhost:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.options("/{path:path}")
+async def options_handler(request: Request):
+    response = JSONResponse()
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, DELETE, PUT"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    return
 
 @app.get("/")
 async def hi(dialog: int = None):
     return {"message": "Hello World"}
 
+@app.get("/fxb/welcome")
+async def overit(response: Response, dialog: int = None):
 
-@app.get("/drm/welcome")
-async def overit(dialog: int = None):
-    time.sleep(5)
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
+
     try:
         card_number = await connect_to_db(dialog)
         if card_number:
+            response.set_cookie(
+                key="session_id",
+                value="123456",
+                httponly=True,
+                secure=False,  # Musí byť False pri HTTP (zmeň na True pri HTTPS)
+                samesite="None",  # Povinné pre CORS cookies
+                max_age=3600,
+                path="/"
+            
+            )
             return {"findNumber": "true", "message": "Number found"}
+    
+
     except ValueError:
         return {"findNumber": "false", "message": "Invalid number format in file"}
 
     return {"findNumber": "false", "message": "Number not found"}
 
-
-@app.get("/drm/home")
+@app.get("/fxb/home")
 async def overit(dialogVZ: int = None, dialogOP: int = None):
     print(dialogVZ, dialogOP)
     if dialogVZ and dialogOP is None:
@@ -49,3 +76,4 @@ async def overit(dialogVZ: int = None, dialogOP: int = None):
         return {"findError": "false", "message": "Invalid number format in file"}
 
     return {"findError": "false", "message": "Number not found"}
+

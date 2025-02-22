@@ -2,9 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../shared';
 import { LoadSpinner } from '../shared';
+import './style.css';
 
 
-const LoginForm = () => {
+function LoginForm(): JSX.Element {
     const [cardNumber, setCardNumber] = React.useState('');
     const [loginSpinnerShow, setLoginSpinnerShow] = React.useState(false);
     const navigate = useNavigate();
@@ -13,14 +14,18 @@ const LoginForm = () => {
         event.preventDefault();
         if (cardNumber.trim() !== '') {
             setLoginSpinnerShow(true);
-            fetch(`${API_URL}/drm/welcome?dialog=${encodeURIComponent(cardNumber)}`, {
-                method: 'GET'
+            fetch(`${API_URL}/fxb/welcome?dialog=${encodeURIComponent(cardNumber)}`, {
+                method: "GET",
+                credentials: "include",  // Povolenie cookies
+                headers: {
+                    "Content-Type": "application/json",
+                }
             }).then(response => response.json()) // Prečítaj JSON telo odpovede
                 .then(data => {
                     console.log(data);
                     if (data.findNumber === "true") {
                         setLoginSpinnerShow(false);
-                        navigate('/drm/home');
+                        navigate('/fxb/home');
                     } else {
                         alert('Číslo sa nenašlo.');
                     }
@@ -32,26 +37,26 @@ const LoginForm = () => {
     };
 
     return (
-        <div>
-            <div>
-                <h2>Zadajte svoje číslo</h2>
+        <div className='loginForm'>
+            <div className='loginForm__content'>
+                <h2>You write the cardNumber</h2>
                 <form onSubmit={handleSubmit}>
                     <label>
-                        Číslo:
+                        number:
                         <input
                             type="text"
                             value={cardNumber}
-                            onChange={(e) => setCardNumber(e.target.value)}
-                        />
+                            onChange={(e) => setCardNumber(e.target.value)} />
                     </label>
-                    <button type="submit">Odoslať</button>
+                    <button type="submit">Send</button>
                 </form>
             </div>
+            <div>
             {
                 loginSpinnerShow &&
                 <LoadSpinner load_Spinner={loginSpinnerShow} />
             }
-
+            </div>
         </div>
     );
 };

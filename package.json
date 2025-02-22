@@ -1,0 +1,17 @@
+{
+  "name": "react_ts_python",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startClient": "cd client && npm start",
+    "startServer": "cd server &&  uvicorn index:app --reload",
+    "startProject": "concurrently \"npm run startServer\" \"npm run startClient\""
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
