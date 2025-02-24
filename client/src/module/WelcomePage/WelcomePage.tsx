@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { LoginForm } from '../LoginPage';
+import { LoginForm } from '../Authentication/LogIn';
 import './style.css';
 
 function WelcomePage(): JSX.Element {

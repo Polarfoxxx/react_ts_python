@@ -6,13 +6,12 @@ from db import connect_to_db
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from starlette.requests import Request
-
+from datetime import datetime, timezone, timedelta
 app = FastAPI()
 
 origins = [
     "http://localhost:3000",
 ]
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -20,7 +19,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 @app.options("/{path:path}")
 async def options_handler(request: Request):
     response = JSONResponse()
@@ -29,35 +27,24 @@ async def options_handler(request: Request):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
     return
 
-@app.get("/")
-async def hi(dialog: int = None):
-    return {"message": "Hello World"}
-
 @app.get("/fxb/welcome")
 async def overit(response: Response, dialog: int = None):
 
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
-
     try:
         card_number = await connect_to_db(dialog)
+        print(card_number)
         if card_number:
             response.set_cookie(
-                key="session_id",
-                value="123456",
-                httponly=True,
-                secure=False,  # Musí byť False pri HTTP (zmeň na True pri HTTPS)
-                samesite="None",  # Povinné pre CORS cookies
-                max_age=3600,
-                path="/"
-            
+                  key="foxxyFinance",
+                  value="nic",
+                  expires=datetime.now(timezone.utc) + timedelta(hours=1),  # Expirácia za 1 hodinu
+                  path="/"
             )
             return {"findNumber": "true", "message": "Number found"}
-    
-
     except ValueError:
         return {"findNumber": "false", "message": "Invalid number format in file"}
-
     return {"findNumber": "false", "message": "Number not found"}
 
 @app.get("/fxb/home")

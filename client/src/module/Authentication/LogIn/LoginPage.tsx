@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../shared';
-import { LoadSpinner } from '../shared';
+import { API_URL } from '../../shared';
+import { LoadSpinner } from '../../shared';
 import './style.css';
 
 
