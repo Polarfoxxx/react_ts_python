@@ -4,11 +4,30 @@ import { ShowVzByURL } from '../ShowVZbyURL';
 import { API_URL } from '../shared';
 import { AddTransaction, DedTransaction } from './Transaction';
 import { ListTransaction } from './ListTransaction';
+import { LogOut } from '../Authentication';
+import { authorizationModule } from '../shared/authorizationModule';
+
 
 function Home(): JSX.Element {
     const navigate = useNavigate();
     const [VZNumber, setCardNumber] = React.useState('');
     const [OPNumber, setOPNumber] = React.useState('');
+    const [on_authorization, setOn_authorization] = React.useState(false);
+
+
+    React.useEffect(() => {
+        authoriz_mod();
+    }, []);
+
+    async function authoriz_mod() {
+        const module = await authorizationModule();
+        if (!module) {
+            setOn_authorization(false)
+            navigate('/fxb/welcome')
+        } else {
+            setOn_authorization(true);
+        }
+    };
 
     const handleSubmit = async (event: any) => {
         event.preventDefault();
@@ -25,22 +44,37 @@ function Home(): JSX.Element {
 
     return (
         <div>
-            <div>
-                <h1>Home</h1>
-            </div>
-            <div>
-                <div>
-                    <div>
-                        <AddTransaction />
-                    </div>
-                    <div>
-                        <DedTransaction />
-                    </div>
-                </div>
-                <div>
-                    <ListTransaction />
-                </div>
-            </div>
+            {
+                on_authorization ?
+                    (
+                        <div>
+                            <div>
+                                <h1>Home</h1>
+                            </div>
+                            <div>
+                                <LogOut />
+                            </div>
+                            <div>
+                                <div>
+                                    <div>
+                                        <AddTransaction />
+                                    </div>
+                                    <div>
+                                        <DedTransaction />
+                                    </div>
+                                </div>
+                                <div>
+                                    <ListTransaction />
+                                </div>
+                            </div>
+                        </div>
+                    ) :
+                    (
+                        <div>
+                            {/* no login */}
+                        </div>
+                    )
+            }
         </div>
     );
 }

@@ -64,3 +64,17 @@ async def overit(dialogVZ: int = None, dialogOP: int = None):
 
     return {"findError": "false", "message": "Number not found"}
 
+
+
+
+@app.get("/cookie/delete")
+async def delete_cookie(response: Response):
+    response.delete_cookie("foxxyFinance")
+    return {"message": "Cookie deleted"}
+
+@app.get("/cookie/verify")
+async def verify_cookie(request: Request):
+    print(request.cookies)
+    if "foxxyFinance" in request.cookies:
+        return {"message": "Cookie verified"}
+    return {"message": "Cookie not found"}

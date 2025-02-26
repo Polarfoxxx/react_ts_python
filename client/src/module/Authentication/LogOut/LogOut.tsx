@@ -1,5 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../shared";
 
 function LogOut(): JSX.Element {
     const navigate = useNavigate();
@@ -7,31 +8,27 @@ function LogOut(): JSX.Element {
 
 
     const handleClickLogOut = () => {
-        logOutAPI()
+        logOutAPI();
+        navigate('/fxb/welcome');
     };
 
     const logOutAPI = async (): Promise<void> => {
         try {
-            const response = await fetch('/cookie/logout', {
-                method: 'POST',
-                credentials: 'include', // Needed if using cookies for authentication
-            });
-    
-            if (!response.ok) {
-                throw new Error('Logout request failed');
-            }
-    
-            // Clear authentication data
-            localStorage.removeItem('authToken');
-            sessionStorage.removeItem('authToken');
-            document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    
-            console.log('User logged out successfully');
+            fetch(`${API_URL}/cookie/delete`, {
+                method: "GET",
+                credentials: "include",  // Povolenie cookies
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }).then(response => response.json()) // Prečítaj JSON telo odpovede
+                .then(data => {
+                    console.log(data);
+                })
         } catch (error) {
             console.error('Error during logout:', error);
         }
     };
-    
+
 
 
     return (
