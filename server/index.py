@@ -6,7 +6,8 @@ from db import connect_to_db
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from starlette.requests import Request
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
+import jwt
 app = FastAPI()
 
 origins = [
@@ -27,18 +28,30 @@ async def options_handler(request: Request):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
     return
 
+
+
+SECRET_KEY = "tvoj_tajny_kluc"
+ALGORITHM = "HS256"
+
+def create_jwt(data: dict, expires_delta: timedelta):
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + expires_delta 
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
 @app.get("/fxb/welcome")
 async def overit(response: Response, dialog: int = None):
-
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
     try:
         card_number = await connect_to_db(dialog)
         print(card_number)
         if card_number:
+            token = create_jwt({"sub": "user123"}, timedelta(hours=1))
             response.set_cookie(
-                  key="foxxyFinance",
-                  value="nic",
+                  key="foxxy_accesss_token",
+                  value=token,
                   expires=datetime.now(timezone.utc) + timedelta(hours=1),  # Expirácia za 1 hodinu
                   path="/"
             )
@@ -69,12 +82,15 @@ async def overit(dialogVZ: int = None, dialogOP: int = None):
 
 @app.get("/cookie/delete")
 async def delete_cookie(response: Response):
-    response.delete_cookie("foxxyFinance")
+    response.delete_cookie("foxxy_accesss_token")
     return {"message": "Cookie deleted"}
 
 @app.get("/cookie/verify")
 async def verify_cookie(request: Request):
-    print(request.cookies)
-    if "foxxyFinance" in request.cookies:
+    if "foxxy_accesss_token" in request.cookies:
+        token = request.cookies.get("foxxy_accesss_token")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        exp = payload.get("exp")
+        print(exp)
         return {"message": "Cookie verified"}
     return {"message": "Cookie not found"}
