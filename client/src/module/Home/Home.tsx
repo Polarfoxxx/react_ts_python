@@ -6,7 +6,7 @@ import { AddTransaction, DedTransaction } from './Transaction';
 import { ListTransaction } from './ListTransaction';
 import { LogOut } from '../Authentication';
 import { authorizationModule } from '../shared/authorizationModule';
-import "./style.css";
+import "./home_style.css";
 import { MainValue } from './MainValue';
 
 
@@ -88,3 +88,4 @@ function Home(): JSX.Element {
 }
 
 export default Home;
+

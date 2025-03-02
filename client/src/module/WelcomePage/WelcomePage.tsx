@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { LoginForm } from '../Authentication/LogIn';
-import './style.css';
+import './welcomePage_style.css';
 
 function WelcomePage(): JSX.Element {
     const navigate = useNavigate();
