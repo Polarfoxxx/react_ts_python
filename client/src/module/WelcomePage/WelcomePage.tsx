@@ -16,21 +16,27 @@ function WelcomePage(): JSX.Element {
     };
 
     return (
-        <div>
-            {
-                showLoginForm ?
-                    <LoginForm />
-                    :
-                    <div className='welcomePage'>
-                        <h1>Hello!</h1>
-                        <h3>Please login by cardNumber</h3>
-                        <button 
-                        className="btn-primary"
-                        onClick={handleSendLoginPage}>
-                            Log in
-                        </button>
-                    </div>
-            }
+        <div className='welcome_page'>
+                {
+                    showLoginForm ?
+                        <div className='welcomePage_form'>
+                             <LoginForm />
+                        </div>
+                        :
+                        <div className='welcomePage_form'>
+                            <div>
+                                <h1>Hello!</h1>
+                            </div>
+                            <div>
+                                <h3>Please login by cardNumber</h3>
+                            </div>
+                            <button
+                                className="btn-primary"
+                                onClick={handleSendLoginPage}>
+                                Log in
+                            </button>
+                        </div>
+                }
         </div>
     );
 };

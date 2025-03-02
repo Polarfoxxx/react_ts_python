@@ -1,12 +1,36 @@
+.welcome_page{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    background-image: url("../../../public/img/welcomeImg.jpg");
+    background-position: right -10px top 0px
+}
+
+.welcome_page .welcomePage_form{
+    width: 400px;
+    height: 150px;
+    background-color: #2727270c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 70px;
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 .btn-primary{
     width: 90px;
     height: 30px;
     background-color: #dadada;
-    border-color: #007bff;
+    border-color: #598d36;
     border-radius: 10px;
     cursor: pointer;
 }
 .btn-primary:hover{
-    background-color: #007bff;
+    background-color: #598d36;
     color: white;
 }

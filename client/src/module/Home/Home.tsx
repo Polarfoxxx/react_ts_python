@@ -6,6 +6,8 @@ import { AddTransaction, DedTransaction } from './Transaction';
 import { ListTransaction } from './ListTransaction';
 import { LogOut } from '../Authentication';
 import { authorizationModule } from '../shared/authorizationModule';
+import "./style.css";
+import { MainValue } from './MainValue';
 
 
 function Home(): JSX.Element {
@@ -18,7 +20,6 @@ function Home(): JSX.Element {
     React.useEffect(() => {
         authoriz_mod();
     }, []);
-
     async function authoriz_mod() {
         const module = await authorizationModule();
         if (!module) {
@@ -42,28 +43,35 @@ function Home(): JSX.Element {
             .catch(error => console.error("Error:", error));
     }
 
+
     return (
-        <div>
+        <div className='content_app'>
             {
                 on_authorization ?
                     (
-                        <div>
-                            <div>
-                                <h1>Home</h1>
-                            </div>
-                            <div>
-                                <LogOut />
-                            </div>
-                            <div>
-                                <div>
-                                    <div>
-                                        <AddTransaction />
-                                    </div>
-                                    <div>
-                                        <DedTransaction />
+                        <div className='content_finances'>
+                            <div className='header_content'>
+                                <div className='header_logout'>
+                                    <LogOut />
+                                </div>
+                                <div className='header_tittle'>
+                                    <div className='header_welcome_block'>
+                                        <h1>
+                                            Welcome back Michal
+                                        </h1>
                                     </div>
                                 </div>
-                                <div>
+                            </div>
+                            <div className='body_finances'>
+                                <div className='body_transaction'>
+                                    <div className='body_mainBlock'>
+                                        <MainValue />
+                                    </div>
+                                    <div className='body_secondBlock'>
+                                        <ListTransaction />
+                                    </div>
+                                </div>
+                                <div className='body_InfoBlock'>
                                     <ListTransaction />
                                 </div>
                             </div>

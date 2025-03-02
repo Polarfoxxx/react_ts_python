@@ -39,23 +39,22 @@ function LoginForm(): JSX.Element {
     return (
         <div className='loginForm'>
             <div className='loginForm__content'>
-                <h2>You write the cardNumber</h2>
+                <h2>
+                    You write the cardNumber
+                    </h2>
                 <form onSubmit={handleSubmit}>
-                    <label>
-                        number:
-                        <input
-                            type="text"
-                            value={cardNumber}
-                            onChange={(e) => setCardNumber(e.target.value)} />
-                    </label>
+                    <input
+                        type="text"
+                        value={cardNumber}
+                        onChange={(e) => setCardNumber(e.target.value)} />
                     <button type="submit">Send</button>
                 </form>
             </div>
-            <div>
-            {
-                loginSpinnerShow &&
-                <LoadSpinner load_Spinner={loginSpinnerShow} />
-            }
+            <div className='login_loadSpinner'>
+                {
+                    loginSpinnerShow &&
+                    <LoadSpinner load_Spinner={loginSpinnerShow} />
+                }
             </div>
         </div>
     );

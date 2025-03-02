@@ -1,0 +1,97 @@
+.content_app{
+    width: 100vw;
+    height: 100%;
+  
+}
+
+.content_app .content_finances{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content_app .content_finances .header_content{
+    width: 100%;
+    height: 80px;
+    min-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: rgb(218, 218, 218);
+    position: relative;
+}
+.content_app .content_finances .header_content  > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content_app .content_finances .header_content .header_tittle{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 200px;
+
+}
+.content_app .content_finances .header_content .header_tittle .header_welcome_block{
+    width: auto;
+    height: auto;
+    padding: 10px;
+    font-size: 20px;
+    color: green;
+}
+
+.content_app .content_finances .header_content .header_logout {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 90px;
+    height: 50px;
+    background-color: blue;
+}
+
+
+.content_app .content_finances .body_finances{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+.content_app .content_finances .body_finances .body_transaction{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.content_app .content_finances .body_finances .body_transaction > div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+.content_app .content_finances .body_finances .body_transaction .body_mainBlock {
+    width: 100%;
+    height: 60%;
+}
+
+.content_app .content_finances .body_finances .body_InfoBlock{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
