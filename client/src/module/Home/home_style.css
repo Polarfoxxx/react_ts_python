@@ -15,12 +15,12 @@
 
 .content_app .content_finances .header_content{
     width: 100%;
-    height: 80px;
-    min-height: 80px;
+    height: 90px;
+    min-height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     background-color: var(--main-color_silver);
     position: relative;
 }
@@ -41,19 +41,27 @@
 
 }
 .content_app .content_finances .header_content .header_tittle .header_welcome_block{
-    width: auto;
-    height: auto;
-    padding: 10px;
-    font-size: 20px;
+    padding-right: 10px;
+    font-size: 17px;
     color: green;
+}
+.content_app .content_finances .header_content .little_header_finances{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: green;  
+    color: white;
+    padding-right: 155px;
 }
 
 .content_app .content_finances .header_content .header_logout {
     position: absolute;
     left: 0;
     top: 0;
-    width: 90px;
-    height: 50px;
+    width: 70px;
+    height: 40px;
 }
 
 

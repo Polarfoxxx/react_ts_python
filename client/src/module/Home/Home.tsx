@@ -61,6 +61,11 @@ function Home(): JSX.Element {
                                         </h1>
                                     </div>
                                 </div>
+                                <div className='little_header_finances'>
+                                    <h3>
+                                        This is your finances report
+                                    </h3>
+                                </div>
                             </div>
                             <div className='body_finances'>
                                 <div className='body_transaction'>

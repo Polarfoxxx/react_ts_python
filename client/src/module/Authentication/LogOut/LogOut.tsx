@@ -1,6 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../shared";
+import "./logOut_style.css";
 
 function LogOut(): JSX.Element {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ function LogOut(): JSX.Element {
 
 
     return (
-        <div>
+        <div className="logout">
             <button onClick={handleClickLogOut}>
                 Logout
             </button>
