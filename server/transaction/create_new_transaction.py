@@ -1,18 +1,14 @@
 from pymongo import MongoClient
+from db_connection import connection_to_db
 from jsonschema import validate, ValidationError
-from dotenv import load_dotenv
-import pymongo
-import os
-load_dotenv() 
+
+
 
 def create_new_transaction():
-    # Pripojenie k MongoDB
-    client = pymongo.MongoClient(os.getenv("MY_MONGO_CONNECTION_STRING"))
-    db = client["PythonServer"]
-    collection = db["cardNumber"]
+    mongoo_connection = connection_to_db()
 
     # Nájdeme konkrétny dokument
-    allTransaction = collection.find_one({"cardNumber": 5317})
+    allTransaction = mongoo_connection.find_one({"cardNumber": 5317})
     if allTransaction is None:
         print("Nenájdený dokument!")
         return
@@ -41,17 +37,13 @@ def create_new_transaction():
     # Pridanie transakcie validacia
     try:
         validate(instance=newTransaction, schema=schema)
-        collection.update_one(
+        mongoo_connection.update_one(
              {"cardNumber": 5317},
              {"$push": {"all_transaction": newTransaction}}
             )
         print("Používateľ bol uložený!")
     except ValidationError as e:
         print("Chyba validácie:", e)
-
-   
-
-
     print("Transakcia bola úspešne pridaná!")
 
 create_new_transaction()

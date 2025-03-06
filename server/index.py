@@ -1,13 +1,11 @@
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 import json
-import time
-from db import connect_to_db
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from starlette.requests import Request
-from datetime import datetime, timedelta, timezone
 import jwt
+from authentication.authentication import authentication 
 app = FastAPI()
 
 origins = [
@@ -29,36 +27,16 @@ async def options_handler(request: Request):
     return
 
 
-
-SECRET_KEY = "tvoj_tajny_kluc"
-ALGORITHM = "HS256"
-
-def create_jwt(data: dict, expires_delta: timedelta):
-    to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + expires_delta 
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
-
 @app.get("/fxb/welcome")
-async def overit(response: Response, dialog: int = None):
+async def log_in(response: Response, dialog: int = None):
     if dialog is None:
         return {"findNumber": "nok", "message": "Missing 'dialog' parameter"}
     try:
-        card_number = await connect_to_db(dialog)
-        print(card_number)
-        if card_number:
-            token = create_jwt({"sub": "user123"}, timedelta(hours=1))
-            response.set_cookie(
-                  key="foxxy_accesss_token",
-                  value=token,
-                  expires=datetime.now(timezone.utc) + timedelta(hours=1),  # Expirácia za 1 hodinu
-                  path="/"
-            )
-            return {"findNumber": "true", "message": "Number found"}
+        authen_response = await authentication(dialog, response)
+        return authen_response
     except ValueError:
         return {"findNumber": "false", "message": "Invalid number format in file"}
-    return {"findNumber": "false", "message": "Number not found"}
+
 
 @app.get("/fxb/home")
 async def overit(dialogVZ: int = None, dialogOP: int = None):
@@ -85,6 +63,9 @@ async def delete_cookie(response: Response):
     response.delete_cookie("foxxy_accesss_token")
     return {"message": "Cookie deleted"}
 
+
+SECRET_KEY = "tvoj_tajny_kluc"
+ALGORITHM = "HS256"
 @app.get("/cookie/verify")
 async def verify_cookie(request: Request):
     if "foxxy_accesss_token" in request.cookies:

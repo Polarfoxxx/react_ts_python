@@ -24,16 +24,16 @@ function MainValue(): JSX.Element {
                 </span>
             </div>
             <div className="main-value__footer">
-<div>
- <h1>
-    Last month: 
- </h1>
-</div>
-<div>
-    <h1>
-        + 2,5%
-    </h1>
-</div>
+                <div>
+                    <h1>
+                        Last month:
+                    </h1>
+                </div>
+                <div>
+                    <h1>
+                        + 2,5%
+                    </h1>
+                </div>
             </div>
         </div>
     );
