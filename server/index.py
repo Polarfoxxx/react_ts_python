@@ -1,11 +1,11 @@
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
-import json
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
 from starlette.requests import Request
-import jwt
-from authentication.authentication import authentication 
+from authentication import * 
+from cookie import *
+
 app = FastAPI()
 
 origins = [
@@ -26,7 +26,7 @@ async def options_handler(request: Request):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
     return
 
-
+""" authentication.............................. """
 @app.get("/fxb/welcome")
 async def log_in(response: Response, dialog: int = None):
     if dialog is None:
@@ -37,8 +37,31 @@ async def log_in(response: Response, dialog: int = None):
     except ValueError:
         return {"findNumber": "false", "message": "Invalid number format in file"}
 
+""" cookie....................................... """
+@app.get("/cookie/delete")
+async def delete_cookie(response: Response):
+ return remove_cookie(response)
 
-@app.get("/fxb/home")
+
+@app.get("/cookie/verify")
+async def verify_cookie(request: Request):
+  return verifycation_cookie(request)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+""" @app.get("/fxb/home")
 async def overit(dialogVZ: int = None, dialogOP: int = None):
     print(dialogVZ, dialogOP)
     if dialogVZ and dialogOP is None:
@@ -55,23 +78,4 @@ async def overit(dialogVZ: int = None, dialogOP: int = None):
 
     return {"findError": "false", "message": "Number not found"}
 
-
-
-
-@app.get("/cookie/delete")
-async def delete_cookie(response: Response):
-    response.delete_cookie("foxxy_accesss_token")
-    return {"message": "Cookie deleted"}
-
-
-SECRET_KEY = "tvoj_tajny_kluc"
-ALGORITHM = "HS256"
-@app.get("/cookie/verify")
-async def verify_cookie(request: Request):
-    if "foxxy_accesss_token" in request.cookies:
-        token = request.cookies.get("foxxy_accesss_token")
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        exp = payload.get("exp")
-        print(exp)
-        return {"message": "Cookie verified"}
-    return {"message": "Cookie not found"}
+ """
