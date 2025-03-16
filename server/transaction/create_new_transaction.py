@@ -1,10 +1,13 @@
 from pymongo import MongoClient
 from jsonschema import validate, ValidationError
-from ..db.db_connection import connection_to_db
+import sys
+sys.path.append("../db")
+from db_connection import connection_to_db
 
+def create_new_transaction():
+    # Pripojenie k DB
+    mongoo_connection = connection_to_db()
 
-async def  create_new_transaction():
-    mongoo_connection = await connection_to_db()
 
     # Nájdeme konkrétny dokument
     allTransaction = mongoo_connection.find_one({"cardNumber": 5317})
@@ -14,6 +17,7 @@ async def  create_new_transaction():
 
     # Získame existujúce transakcie
     mytransaction = allTransaction.get("all_transaction", [])
+    
     # Schéma pre validáciu
     schema = {
         "type": "object",
@@ -25,7 +29,6 @@ async def  create_new_transaction():
         "required": ["create_time", "type_trns", "value_trns"]
     }
 
-
     # Nová transakcia
     newTransaction = {
         "create_time": "25,5,2025",
@@ -33,16 +36,20 @@ async def  create_new_transaction():
         "value_trns": 55555555
     }
 
-    # Pridanie transakcie validacia
+    # Pridanie transakcie a validácia
     try:
         validate(instance=newTransaction, schema=schema)
+        
+        # Aktualizácia databázy s novou transakciou
         mongoo_connection.update_one(
-             {"cardNumber": 5317},
-             {"$push": {"all_transaction": newTransaction}}
-            )
+            {"cardNumber": 5317},
+            {"$push": {"all_transaction": newTransaction}}
+        )
         print("Používateľ bol uložený!")
     except ValidationError as e:
         print("Chyba validácie:", e)
+
     print("Transakcia bola úspešne pridaná!")
 
+# Zavolanie funkcie
 create_new_transaction()

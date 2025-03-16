@@ -1,6 +1,7 @@
-from ..db import connection_to_db
+from ..db import *  # ✅ Absolútny import
 
 
-async def load_all_transaction():
+def load_all_transaction():
     print(connection_to_db())
 
+load_all_transaction()

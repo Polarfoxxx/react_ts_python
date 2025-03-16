@@ -59,7 +59,7 @@ async def verify_cookie(request: Request):
 
 
 
-load_all_transaction()
+
 
 
 
