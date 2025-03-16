@@ -5,6 +5,7 @@ from starlette.responses import JSONResponse
 from starlette.requests import Request
 from authentication import * 
 from cookie import *
+from transaction import create_new_transaction, load_all_transaction
 
 app = FastAPI()
 
@@ -37,6 +38,12 @@ async def log_in(response: Response, dialog: int = None):
     except ValueError:
         return {"findNumber": "false", "message": "Invalid number format in file"}
 
+""" transaction................................ """
+@app.get("/fxb/load_all_transaction")
+async def load_all_transaction(request: Request):
+    return await load_all_transaction()
+
+
 """ cookie....................................... """
 @app.get("/cookie/delete")
 async def delete_cookie(response: Response):
@@ -52,8 +59,7 @@ async def verify_cookie(request: Request):
 
 
 
-
-
+load_all_transaction()
 
 
 

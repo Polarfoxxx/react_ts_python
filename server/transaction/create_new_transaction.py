@@ -1,11 +1,10 @@
 from pymongo import MongoClient
-from db_connection import connection_to_db
 from jsonschema import validate, ValidationError
+from ..db.db_connection import connection_to_db
 
 
-
-def create_new_transaction():
-    mongoo_connection = connection_to_db()
+async def  create_new_transaction():
+    mongoo_connection = await connection_to_db()
 
     # Nájdeme konkrétny dokument
     allTransaction = mongoo_connection.find_one({"cardNumber": 5317})
