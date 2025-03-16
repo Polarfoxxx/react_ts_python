@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 from jsonschema import validate, ValidationError
-import sys
-sys.path.append("../db")
-from db_connection import connection_to_db
+from db.db_connection import connection_to_db
+
+
 
 def create_new_transaction():
     # Pripojenie k DB
