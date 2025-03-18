@@ -24,15 +24,17 @@ def create_new_transaction():
         "properties": {
             "create_time": {"type": "string"},
             "type_trns": {"type": "string"},
+            "class_trns": {"type": "string"},
             "value_trns": {"type": "integer", "minimum": 0}
         },
-        "required": ["create_time", "type_trns", "value_trns"]
+        "required": ["create_time", "type_trns","class_trns", "value_trns"]
     }
 
     # Nová transakcia
     newTransaction = {
-        "create_time": "25,5,2025",
+        "create_time": "25-5-2025",
         "type_trns": "deduction",
+        "class_trns": "hobby",
         "value_trns": 55555555
     }
 

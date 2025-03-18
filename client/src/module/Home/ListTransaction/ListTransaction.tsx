@@ -1,32 +1,45 @@
 import React from 'react';
-import { API_URL } from '../../shared';
+import "./listTransaction_style.css";
+import { read_Transaction } from '../../API/transaction';
+
+interface Transaction_model {
+  create_time: string;
+  type_trns: "deduction" | "addition";
+  value_trns: string
+}
 
 function ListTransaction(): JSX.Element {
+  const [transactions, setTransactions] = React.useState<Array<Transaction_model>>([]);
 
   React.useEffect(() => {
-    loadAllTransactions();
+    read_Transaction().then(data => {
+      setTransactions(data);
+    });
   }, []);
-
-  async function loadAllTransactions() {
-    const current_URL = `/fxb/load_all_transactions`
-    fetch(`${API_URL}${current_URL}`, {
-      method: 'GET'
-    }).then(response => response.json()) // Prečítaj JSON telo odpovede
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => console.error("Error:", error));
-  }
-
 
 
   return (
-    <div>
-      <h1>Transactions</h1>
-      <ul>
-      </ul>
+    <div className='transaction_list'>
+      {
+        transactions.map((transaction: Transaction_model, key: number) => (
+          <div
+            key={key}
+            className='transaction_item'>
+            <div>
+              <h3>{transaction.create_time}</h3>
+            </div>
+            <div>
+              <h3>{transaction.type_trns}</h3>
+            </div>
+            <div>
+              <h3>{transaction.value_trns}</h3>
+            </div>
+          </div>
+        ))
+      }
     </div>
   );
 }
+
 
 export default ListTransaction;

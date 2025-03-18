@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShowVzByURL } from '../ShowVZbyURL';
 import { API_URL } from '../shared';
-import { AddTransaction, DedTransaction } from './Transaction';
+import { Transaction } from './Transaction';
 import { ListTransaction } from './ListTransaction';
 import { LogOut } from '../Authentication';
 import { authorizationModule } from '../shared/authorizationModule';
@@ -72,12 +72,14 @@ function Home(): JSX.Element {
                                     <div className='body_mainBlock'>
                                         <MainValue />
                                     </div>
+                                    <div className='body_firstBlock'>
+                                        <Transaction /> 
+                                    </div>
                                     <div className='body_secondBlock'>
                                         <ListTransaction />
                                     </div>
                                 </div>
                                 <div className='body_InfoBlock'>
-                                    <ListTransaction />
                                 </div>
                             </div>
                         </div>
