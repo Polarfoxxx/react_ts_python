@@ -1,12 +1,6 @@
 import React from 'react';
 import "./listTransaction_style.css";
-import { read_Transaction } from '../../API/transaction';
-
-interface Transaction_model {
-  create_time: string;
-  type_trns: "deduction" | "addition";
-  value_trns: string
-}
+import { read_Transaction, Transaction_model } from '../../API/transaction';
 
 function ListTransaction(): JSX.Element {
   const [transactions, setTransactions] = React.useState<Array<Transaction_model>>([]);

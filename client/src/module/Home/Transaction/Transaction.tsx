@@ -1,5 +1,4 @@
-import { AddTransaction } from "./AddTransaction";
-import { DedTransaction } from "./DedTransaction";
+import { NewTransaction } from "./NewTransaction";
 
 function Transaction(): JSX.Element {
     return (
@@ -8,10 +7,9 @@ function Transaction(): JSX.Element {
                 <h1>Transaction</h1>
             </div>
             <div>
-                <AddTransaction />
+                <NewTransaction />
             </div>
             <div>
-                <DedTransaction />
             </div>
         </div>
     )

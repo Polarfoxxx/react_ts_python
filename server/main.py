@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Response
+from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
@@ -43,6 +44,16 @@ async def log_in(response: Response, dialog: int = None):
 @app.get("/fxb/load_all_transactions")
 async def load_all_transaction():
     return load_all_transactions()
+
+class Transaction(BaseModel):
+    create_time: str
+    type_trns: str
+    class_trns: str
+    value_trns: int
+@app.get("/fxb/create_new_transactions")
+async def create_transaction(item: Transaction):
+    return create_new_transaction()
+
 
 
 """ cookie....................................... """

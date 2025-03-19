@@ -12,10 +12,7 @@ import { MainValue } from './MainValue';
 
 function Home(): JSX.Element {
     const navigate = useNavigate();
-    const [VZNumber, setCardNumber] = React.useState('');
-    const [OPNumber, setOPNumber] = React.useState('');
     const [on_authorization, setOn_authorization] = React.useState(false);
-
 
     React.useEffect(() => {
         authoriz_mod();
@@ -30,7 +27,7 @@ function Home(): JSX.Element {
         }
     };
 
-    const handleSubmit = async (event: any) => {
+ /*    const handleSubmit = async (event: any) => {
         event.preventDefault();
         const current_URL = `/fxb/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`
         navigate(current_URL)
@@ -42,7 +39,7 @@ function Home(): JSX.Element {
             })
             .catch(error => console.error("Error:", error));
     }
-
+ */
 
     return (
         <div className='content_app'>

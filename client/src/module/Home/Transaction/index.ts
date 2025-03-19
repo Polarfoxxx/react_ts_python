@@ -1,3 +1,2 @@
-export * from "./AddTransaction";
-export * from "./DedTransaction";
+export * from "./NewTransaction";
 export { default as Transaction } from "./Transaction";
