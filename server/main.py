@@ -46,13 +46,14 @@ async def load_all_transaction():
     return load_all_transactions()
 
 class Transaction(BaseModel):
-    create_time: str
     type_trns: str
-    class_trns: str
     value_trns: int
-@app.get("/fxb/create_new_transactions")
+    name_event: str
+    create_time: str
+@app.post("/fxb/create_new_transactions")
 async def create_transaction(item: Transaction):
-    return create_new_transaction()
+    print(item.model_dump())
+    return create_new_transaction(item.model_dump())
 
 
 
