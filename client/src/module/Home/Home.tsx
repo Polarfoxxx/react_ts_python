@@ -14,7 +14,8 @@ function Home(): JSX.Element {
     const navigate = useNavigate();
     const [on_authorization, setOn_authorization] = React.useState(false);
 
-    React.useEffect(() => {
+
+    React.useEffect(() => { 
         authoriz_mod();
     }, []);
     async function authoriz_mod() {

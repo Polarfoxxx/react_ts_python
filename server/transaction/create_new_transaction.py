@@ -1,10 +1,21 @@
 from pymongo import MongoClient
 from jsonschema import validate, ValidationError
 from db.db_connection import connection_to_db
+from fastapi import Request
+import jwt
+from jwt import InvalidTokenError
 
+def decode_jwt(request: Request):
+    if "foxxy_accesss_token" in request.cookies:
+        token = request.cookies.get("foxxy_accesss_token")
+        decoded_token = jwt.decode(token, "tvoj_tajny_kluc", algorithms=["HS256"])
+        return decoded_token
+    return None
 
-def create_new_transaction(newTransaction):
-    print(newTransaction)
+def create_new_transaction(newTransaction: dict, request: Request):
+    ggg = decode_jwt(request)
+    print(ggg)
+    
     #! Pripojenie k DB
     mongoo_connection = connection_to_db()
 
@@ -13,12 +24,10 @@ def create_new_transaction(newTransaction):
     if allTransaction is None:
         print("Nenájdený dokument!")
         return
-
-    #! Získame existujúce transakcie
-    mytransaction = allTransaction.get("all_transaction", [])
     
     #! vezmi všetky verejné premenné (atribúty) z objektu newTransaction a premeň ich na slovník (dict).
-    newTransaction = newTransaction.__dict__
+    #! premeníme na dictionary, aby sme mohli pridať do databázy
+    newTransaction = newTransaction.__dict__ 
     
     create_new_transaction = {
     "type_trns": newTransaction["type_trns"],
@@ -49,8 +58,11 @@ def create_new_transaction(newTransaction):
             {"cardNumber": 5317},
             {"$push": {"all_transaction": create_new_transaction}}
         )
-        print("Používateľ bol uložený!")
-        return {"findError": "false", "message": "Transaction was added!"}
+         #! Získame existujúce transakcie
+        mongoo_connection = connection_to_db()
+        allTransaction = mongoo_connection.find_one({"cardNumber": 5317})
+        mytransaction = allTransaction.get("all_transaction", [])
+        return {"findError": "false", "message": "Transaction was added!", "Alltransaction": mytransaction}
     except ValidationError as e:
         print("Chyba validácie:", e)
-    return {"findError": "false", "message": "Transaction was added!"}
+        return {"findError": "true", "message": "Transaction was not added!"}

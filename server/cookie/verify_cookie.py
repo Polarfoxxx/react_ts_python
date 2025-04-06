@@ -9,7 +9,6 @@ def verifycation_cookie(request: Request):
         token = request.cookies.get("foxxy_accesss_token")
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         exp = payload.get("exp")
-        print(exp)
         return {"message": "Cookie verified"}
     return {"message": "Cookie not found"}
    
