@@ -2,20 +2,22 @@ import { API_URL } from "../../../shared";
 import axios from "axios";
 import { Type_for_new_transaction } from "./types";
 
-
 async function create_Transaction(props: Type_for_new_transaction) {
-  const new_trans = props
-  const current_URL = `/fxb/create_new_transactions`
+  const current_URL = "/fxb/create_new_transactions";
+  console.log("Odosielam dáta:", props);
 
-  axios.post(`${API_URL}${current_URL}`, {
-    new_trans
-  })
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
+  try {
+    const response = await axios.post(`${API_URL}${current_URL}`, props, {
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-  }
 
-  export default create_Transaction;
+    console.log("Úspešná odpoveď:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Chyb")
+  }
+}
+
+export default create_Transaction;

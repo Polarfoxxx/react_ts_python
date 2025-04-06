@@ -51,9 +51,8 @@ class Transaction(BaseModel):
     name_event: str
     create_time: str
 @app.post("/fxb/create_new_transactions")
-async def create_transaction(item: Transaction):
-    print(item.model_dump())
-    return create_new_transaction(item.model_dump())
+async def create_transaction(transaction: Transaction):
+   return create_new_transaction(transaction)
 
 
 

@@ -3,8 +3,8 @@ from jsonschema import validate, ValidationError
 from db.db_connection import connection_to_db
 
 
-def create_new_transaction():
-    return()
+def create_new_transaction(newTransaction):
+    print(newTransaction)
     #! Pripojenie k DB
     mongoo_connection = connection_to_db()
 
@@ -17,30 +17,40 @@ def create_new_transaction():
     #! Získame existujúce transakcie
     mytransaction = allTransaction.get("all_transaction", [])
     
+    #! vezmi všetky verejné premenné (atribúty) z objektu newTransaction a premeň ich na slovník (dict).
+    newTransaction = newTransaction.__dict__
+    
+    create_new_transaction = {
+    "type_trns": newTransaction["type_trns"],
+    "value_trns": newTransaction["value_trns"],
+    "name_event": newTransaction["name_event"],
+    "create_time": newTransaction["create_time"]
+}
+
+    
     #! Schéma pre validáciu
     schema = {
         "type": "object",
         "properties": {
-            "create_time": {"type": "string"},
             "type_trns": {"type": "string"},
-            "class_trns": {"type": "string"},
-            "value_trns": {"type": "integer", "minimum": 0}
+            "value_trns": {"type": "integer", "minimum": 0},
+            "name_event": {"type": "string"},
+            "create_time": {"type": "string"},
         },
-        "required": ["create_time", "type_trns","class_trns", "value_trns"]
+        "required": ["type_trns", "value_trns","name_event", "create_time"]
     }
 
     #! Pridanie transakcie a validácia
     try:
-        validate(instance=newTransaction, schema=schema)
+        validate(instance=create_new_transaction, schema=schema)
         
         #! Aktualizácia databázy s novou transakciou
         mongoo_connection.update_one(
             {"cardNumber": 5317},
-            {"$push": {"all_transaction": newTransaction}}
+            {"$push": {"all_transaction": create_new_transaction}}
         )
         print("Používateľ bol uložený!")
         return {"findError": "false", "message": "Transaction was added!"}
     except ValidationError as e:
         print("Chyba validácie:", e)
-    print("Transakcia bola úspešne pridaná!")
     return {"findError": "false", "message": "Transaction was added!"}
