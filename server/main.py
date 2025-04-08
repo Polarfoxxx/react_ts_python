@@ -29,7 +29,7 @@ async def options_handler(request: Request):
     response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
     return
 
-""" authentication.............................. """
+#!authentication..............................
 @app.get("/fxb/welcome")
 async def log_in(response: Response, dialog: int = None):
     if dialog is None:
@@ -40,7 +40,7 @@ async def log_in(response: Response, dialog: int = None):
     except ValueError:
         return {"findNumber": "false", "message": "Invalid number format in file"}
 
-""" transaction................................ """
+#!transaction................................. 
 @app.get("/fxb/load_all_transactions")
 async def load_all_transaction():
     return load_all_transactions()
@@ -55,15 +55,15 @@ async def create_transaction(transaction: Transaction, request: Request):
    return create_new_transaction(transaction, request)
 
 
-""" cookie....................................... """
+#!cookie.......................................
 @app.get("/cookie/delete")
 async def delete_cookie(response: Response):
- return remove_cookie(response)
+ return CookieManager(response).delete_cookie()
 
 
 @app.get("/cookie/verify")
 async def verify_cookie(request: Request):
-  return verifycation_cookie(request)
+  return CookieManager(request).verifycation_cookie()
 
 
 

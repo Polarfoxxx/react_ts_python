@@ -4,16 +4,10 @@ from db.db_connection import connection_to_db
 from fastapi import Request
 import jwt
 from jwt import InvalidTokenError
-
-def decode_jwt(request: Request):
-    if "foxxy_accesss_token" in request.cookies:
-        token = request.cookies.get("foxxy_accesss_token")
-        decoded_token = jwt.decode(token, "tvoj_tajny_kluc", algorithms=["HS256"])
-        return decoded_token
-    return None
+from cookie import *
 
 def create_new_transaction(newTransaction: dict, request: Request):
-    ggg = decode_jwt(request)
+    ggg = CookieManager(request).decode_jwt()
     print(ggg)
     
     #! Pripojenie k DB
@@ -29,6 +23,7 @@ def create_new_transaction(newTransaction: dict, request: Request):
     #! premeníme na dictionary, aby sme mohli pridať do databázy
     newTransaction = newTransaction.__dict__ 
     
+
     create_new_transaction = {
     "type_trns": newTransaction["type_trns"],
     "value_trns": newTransaction["value_trns"],

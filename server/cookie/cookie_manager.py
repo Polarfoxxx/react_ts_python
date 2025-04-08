@@ -1,20 +1,37 @@
+from fastapi import Request, Response
+import jwt
+from datetime import datetime, timedelta, timezone
 
-class CookieManager:
-    def __init__(self):
-        self.cookies = {}
+SECRET_KEY = "tvoj_tajny_kluc"
+ALGORITHM = "HS256"
 
-    def set_cookie(self, name, value, max_age=None):
-        self.cookies[name] = {
-            'value': value,
-            'max_age': max_age
-        }
+class CookieManager():
+    def __init__(self, request: Request):
+        self.request_cookies = request
 
-    def get_cookie(self, name):
-        return self.cookies.get(name, {}).get('value')
+    def decode_jwt(self):
+        if "foxxy_accesss_token" in self.request_cookies.cookies:
+            token = self.request_cookies.cookies.get("foxxy_accesss_token")
+            decoded_token = jwt.decode(token, "tvoj_tajny_kluc", algorithms=["HS256"])
+            return decoded_token
+        return None
 
-    def delete_cookie(self, name):
-        if name in self.cookies:
-            del self.cookies[name]
+    def verifycation_cookie(self):
+        if "foxxy_accesss_token" in self.request_cookies.cookies:
+            token = self.request_cookies.cookies.get("foxxy_accesss_token")
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            exp = payload.get("exp")
+            print(exp)
+            if exp:
+                #! Check if the token is expired
+                if exp < datetime.timezone.utc:
+                    return {"message": "Cookie expired"}
+                else:
+                    return {"message": "Cookie verified"}
+            else:
+                return {"message": "Cookie not found"}
+        return {"message": "Cookie not found"}
 
-    def clear_cookies(self):
-        self.cookies.clear()    
+    def delete_cookie(self,):
+        self.request_cookies.delete_cookie("foxxy_accesss_token")
+        return {"message": "Cookie deleted"}
