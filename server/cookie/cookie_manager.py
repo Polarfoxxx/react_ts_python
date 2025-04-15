@@ -21,10 +21,9 @@ class CookieManager():
             token = self.request_cookies.cookies.get("foxxy_accesss_token")
             payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
             exp = payload.get("exp")
-            print(exp)
             if exp:
                 #! Check if the token is expired
-                if exp < datetime.timezone.utc:
+                if datetime.fromtimestamp(exp, timezone.utc) < datetime.now(timezone.utc): 
                     return {"message": "Cookie expired"}
                 else:
                     return {"message": "Cookie verified"}
