@@ -7,14 +7,14 @@ from jwt import InvalidTokenError
 from cookie import *
 
 def create_new_transaction(newTransaction: dict, request: Request):
-    ggg = CookieManager(request).decode_jwt()
-    print(ggg)
-    
+    decode_cookie = CookieManager(request).decode_jwt()
+    user_logined = decode_cookie.get("cardNumber")
+
     #! Pripojenie k DB
     mongoo_connection = connection_to_db()
 
     #! Nájdeme konkrétny dokument
-    allTransaction = mongoo_connection.find_one({"cardNumber": 5317})
+    allTransaction = mongoo_connection.find_one({"cardNumber": user_logined})
     if allTransaction is None:
         print("Nenájdený dokument!")
         return

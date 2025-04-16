@@ -42,8 +42,8 @@ async def log_in(response: Response, dialog: int = None):
 
 #!transaction................................. 
 @app.get("/fxb/load_all_transactions")
-async def load_all_transaction():
-    return load_all_transactions()
+async def load_all_transaction(request: Request):
+    return load_all_transactions(request)
 
 class Transaction(BaseModel):
     type_trns: str
