@@ -1,16 +1,17 @@
 import React from 'react';
 import { create_Transaction, Type_for_new_transaction } from '../../../API';
+import './newTransaction_style.css';
 
 
 function NewTransaction(): JSX.Element {
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Prevent the default form submit
-        const form = e.currentTarget;   // Get the form element
-        const formData = new FormData(form); // Create a new FormData object    
-        const data = Object.fromEntries(formData); // Convert formData to an object
-        const new_data : Type_for_new_transaction = {
+        e.preventDefault(); //! Prevent the default form submit
+        const form = e.currentTarget;   //! Get the form element
+        const formData = new FormData(form); //! Create a new FormData object    
+        const data = Object.fromEntries(formData); //! Convert formData to an object
+        const new_data: Type_for_new_transaction = {
             type_trns: data.type_trns as string,
             value_trns: Number(data.value_trns),
             name_event: data.name_event as string,
@@ -18,14 +19,14 @@ function NewTransaction(): JSX.Element {
         };
 
         create_Transaction(new_data).then((response) => {
-            console.log(response); // Handle the response from the API
+            console.log(response); //! Handle the response from the API
         }
         )
     }
 
 
     return (
-        <div>
+        <div className='new_transaction'>
             <div>
                 <h1>
                     New transacton

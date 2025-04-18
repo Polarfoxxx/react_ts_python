@@ -78,6 +78,7 @@ function Home(): JSX.Element {
                                     </div>
                                 </div>
                                 <div className='body_InfoBlock'>
+                                    vdsvsdv
                                 </div>
                             </div>
                         </div>
