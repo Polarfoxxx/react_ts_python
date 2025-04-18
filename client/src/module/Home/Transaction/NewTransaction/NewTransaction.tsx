@@ -27,55 +27,62 @@ function NewTransaction(): JSX.Element {
 
     return (
         <div className='new_transaction'>
-            <div>
+            <div className='new_transaction_header'>
                 <h1>
                     New transacton
                 </h1>
             </div>
-            <div>
+            <div className='new_transaction_form'>
                 <form onSubmit={e => handleSubmit(e)}>
-                    <div>
-                        <label htmlFor="type">Type</label>
-                        <input type="text" name="type_trns" id="type" />
+                    <div className='new_transaction_data_one'>
+                        <div>
+                            <label htmlFor="type">Type</label>
+                            <input type="text" name="type_trns" id="type" />
+                        </div>
+                        <div>
+                            <label htmlFor="value">Value</label>
+                            <input type="text" name="value_trns" id="value" />
+                        </div>
                     </div>
-                    <div>
-                        <label htmlFor="value">Value</label>
-                        <input type="text" name="value_trns" id="value" />
+                    <div className='new_transaction_data_two'>
+                        <div>
+                            <select
+                                defaultValue=""
+                                className="w-[400px] h-[30px] text-[14px] ml-3 placeholder:text-slate-300 bg-transparent pl-3 pr-3 text-center border-b-2 border-thems-inputBorder focus:outline-none focus:border-red-500"
+                                name="name_event"
+                                aria-label="Choose an option">
+                                <option value="" disabled hidden>Select a category</option>
+                                <option value="health">Health</option>
+                                <option value="work">Work</option>
+                                <option value="family">Family</option>
+                                <option value="hobbies">Hobbies</option>
+                                <option value="free_time">Free Time</option>
+                                <option value="education">Education</option>
+                                <option value="friends">Friends</option>
+                                <option value="travel">Travel</option>
+                                <option value="sports">Sports</option>
+                                <option value="food">Food</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="personal_growth">Personal Growth</option>
+                                <option value="finance">Finance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="create_time">Create time</label>
+                            <input type="create_time" name="create_time" id="create_time" />
+                        </div>
                     </div>
-                    <div>
-                        <select
-                            defaultValue=""
-                            className="w-[400px] h-[30px] text-[14px] ml-3 placeholder:text-slate-300 bg-transparent pl-3 pr-3 text-center border-b-2 border-thems-inputBorder focus:outline-none focus:border-red-500"
-                            name="name_event"
-                            aria-label="Choose an option">
-                            <option value="" disabled hidden>Select a category</option>
-                            <option value="health">Health</option>
-                            <option value="work">Work</option>
-                            <option value="family">Family</option>
-                            <option value="hobbies">Hobbies</option>
-                            <option value="free_time">Free Time</option>
-                            <option value="education">Education</option>
-                            <option value="friends">Friends</option>
-                            <option value="travel">Travel</option>
-                            <option value="sports">Sports</option>
-                            <option value="food">Food</option>
-                            <option value="entertainment">Entertainment</option>
-                            <option value="personal_growth">Personal Growth</option>
-                            <option value="finance">Finance</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="create_time">Create time</label>
-                        <input type="create_time" name="create_time" id="create_time" />
-                    </div>
+
                     <div>
                         <button type="submit">Submit</button>
                     </div>
                 </form>
             </div>
-            <div>
-
+            <div className='new_transaction_footer'>
+                <h1>
+                    Footer
+                </h1>
             </div>
         </div>
     )
