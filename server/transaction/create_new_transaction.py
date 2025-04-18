@@ -50,12 +50,12 @@ def create_new_transaction(newTransaction: dict, request: Request):
         
         #! Aktualizácia databázy s novou transakciou
         mongoo_connection.update_one(
-            {"cardNumber": 5317},
+            {"cardNumber": user_logined},
             {"$push": {"all_transaction": create_new_transaction}}
         )
          #! Získame existujúce transakcie
         mongoo_connection = connection_to_db()
-        allTransaction = mongoo_connection.find_one({"cardNumber": 5317})
+        allTransaction = mongoo_connection.find_one({"cardNumber": user_logined})
         mytransaction = allTransaction.get("all_transaction", [])
         return {"findError": "false", "message": "Transaction was added!", "Alltransaction": mytransaction}
     except ValidationError as e:

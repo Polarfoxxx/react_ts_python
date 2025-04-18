@@ -14,7 +14,6 @@ async function read_Transaction(): Promise<Array<Transaction_model>> {
       withCredentials: true,
     });
 
-    console.log("Úspešná odpoveď:", response.data);
     return response.data;
   } catch (error) {
     console.error("Chyb")

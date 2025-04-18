@@ -1,9 +1,10 @@
 import React from 'react';
 import { create_Transaction, Type_for_new_transaction } from '../../../API';
 import './newTransaction_style.css';
-
+import Content_app from '../../../../App';
 
 function NewTransaction(): JSX.Element {
+    const main_Context = React.useContext(Content_app.mainContext);
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,9 +20,8 @@ function NewTransaction(): JSX.Element {
         };
 
         create_Transaction(new_data).then((response) => {
-            console.log(response); //! Handle the response from the API
-        }
-        )
+            main_Context.setMainData(response.Alltransaction); //! Update the main context with the new data
+        })
     }
 
 
