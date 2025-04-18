@@ -1,21 +1,28 @@
 import React from 'react';
 import "./listTransaction_style.css";
 import { read_Transaction, Transaction_model } from '../../API/transaction';
+import Content_app from '../../../App';
+
 
 function ListTransaction(): JSX.Element {
   const [transactions, setTransactions] = React.useState<Array<Transaction_model>>([]);
+  const main_Context = React.useContext(Content_app.mainContext);
+
 
   React.useEffect(() => {
     read_Transaction().then(data => {
       setTransactions(data);
+      main_Context.setMainData(data);
     });
   }, []);
+
 
 
   return (
     <div className='transaction_list'>
       {
-        transactions.map((transaction: Transaction_model, key: number) => (
+        main_Context.mainData && 
+          main_Context.mainData.map((transaction: Transaction_model, key: number) => (
           <div
             key={key}
             className='transaction_item'>
