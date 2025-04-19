@@ -15,7 +15,7 @@ function NewTransaction(): JSX.Element {
         const new_data: Type_for_new_transaction = {
             type_trns: data.type_trns as string,
             value_trns: Number(data.value_trns),
-            name_event: data.name_event as string,
+            name_event: data.name_trns as string,
             create_time: data.create_time as string,
         };
 
@@ -36,8 +36,14 @@ function NewTransaction(): JSX.Element {
                 <form onSubmit={e => handleSubmit(e)}>
                     <div className='new_transaction_data_one'>
                         <div>
-                            <label htmlFor="type">Type</label>
-                            <input type="text" name="type_trns" id="type" />
+                        <select
+                                defaultValue=""
+                                name="type_trns"
+                                aria-label="Choose an option">
+                                <option value="" disabled hidden>Select a category</option>
+                                <option value="addition">addition</option>
+                                <option value="deduction">deduction</option>
+                            </select>
                         </div>
                         <div>
                             <label htmlFor="value">Value</label>
@@ -48,8 +54,7 @@ function NewTransaction(): JSX.Element {
                         <div>
                             <select
                                 defaultValue=""
-                                className="w-[400px] h-[30px] text-[14px] ml-3 placeholder:text-slate-300 bg-transparent pl-3 pr-3 text-center border-b-2 border-thems-inputBorder focus:outline-none focus:border-red-500"
-                                name="name_event"
+                                name="name_trns"
                                 aria-label="Choose an option">
                                 <option value="" disabled hidden>Select a category</option>
                                 <option value="health">Health</option>

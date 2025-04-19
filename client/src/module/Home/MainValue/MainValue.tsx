@@ -1,7 +1,21 @@
 import React from "react";
 import "./mainValue_style.css";
+import { current_ballance } from "../../API/transaction";
+import Content_app from "../../../App";
 
 function MainValue(): JSX.Element {
+     const [show_ballance, setShow_ballance] = React.useState(0);
+     const main_Context = React.useContext(Content_app.mainContext);
+
+    React.useEffect(() => {
+        current_ballanc_API();
+    }, [main_Context.mainData]);
+
+    async function current_ballanc_API() {
+       current_ballance().then((response) => {
+            setShow_ballance(response.current_balance);
+        })
+    }
 
 
 
@@ -13,14 +27,13 @@ function MainValue(): JSX.Element {
                 </h1>
             </div>
             <div className="main-value__content">
-                <h2>
-                    5000
-                </h2>
-                <h2 className="main-little__value">
-                    .60
-                </h2>
+                <div className="main-value__value">
+                    <h2>
+                        {show_ballance}
+                    </h2>
+                </div>
                 <span>
-                    euro
+                    €
                 </span>
             </div>
             <div className="main-value__footer">

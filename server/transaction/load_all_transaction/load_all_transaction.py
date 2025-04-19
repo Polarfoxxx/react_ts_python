@@ -13,8 +13,8 @@ def load_all_transactions(request: Request):
     mongoo_connection = connection_to_db()
 
     #! Nájdeme konkrétny dokument
-    allTransaction = mongoo_connection.find_one({"cardNumber": user_logined})
-    if allTransaction is None:
+    logined_user_object = mongoo_connection.find_one({"cardNumber": user_logined})
+    if logined_user_object is None:
         print("Nenájdený dokument!")
         return
-    return allTransaction.get("all_transaction", [])
+    return logined_user_object.get("all_transaction", [])

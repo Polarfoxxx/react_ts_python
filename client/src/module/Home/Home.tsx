@@ -14,7 +14,7 @@ function Home(): JSX.Element {
     const navigate = useNavigate();
     const [on_authorization, setOn_authorization] = React.useState(false);
 
-
+//! spustenie authorizačného modulu...........
     React.useEffect(() => { 
         authoriz_mod();
     }, []);
@@ -28,6 +28,7 @@ function Home(): JSX.Element {
         }
     };
 
+    
  /*    const handleSubmit = async (event: any) => {
         event.preventDefault();
         const current_URL = `/fxb/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`

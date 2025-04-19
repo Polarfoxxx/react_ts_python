@@ -14,8 +14,8 @@ def create_new_transaction(newTransaction: dict, request: Request):
     mongoo_connection = connection_to_db()
 
     #! Nájdeme konkrétny dokument
-    allTransaction = mongoo_connection.find_one({"cardNumber": user_logined})
-    if allTransaction is None:
+    logined_user_object = mongoo_connection.find_one({"cardNumber": user_logined})
+    if logined_user_object is None:
         print("Nenájdený dokument!")
         return
     
@@ -55,8 +55,8 @@ def create_new_transaction(newTransaction: dict, request: Request):
         )
          #! Získame existujúce transakcie
         mongoo_connection = connection_to_db()
-        allTransaction = mongoo_connection.find_one({"cardNumber": user_logined})
-        mytransaction = allTransaction.get("all_transaction", [])
+        logined_user_object = mongoo_connection.find_one({"cardNumber": user_logined})
+        mytransaction = logined_user_object.get("all_transaction", [])
         return {"findError": "false", "message": "Transaction was added!", "Alltransaction": mytransaction}
     except ValidationError as e:
         print("Chyba validácie:", e)

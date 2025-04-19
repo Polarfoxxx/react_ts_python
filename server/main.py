@@ -55,6 +55,11 @@ async def create_transaction(transaction: Transaction, request: Request):
    return create_new_transaction(transaction, request)
 
 
+@app.get("/fxb/current_ballance")
+async def current_ballances(request: Request):
+    return current_ballance(request)
+
+
 #!cookie.......................................
 @app.get("/cookie/delete")
 async def delete_cookie(response: Response):
