@@ -8,14 +8,15 @@ import { LogOut } from '../Authentication';
 import { authorizationModule } from '../shared/authorizationModule';
 import "./home_style.css";
 import { MainValue } from './MainValue';
+import { TransactionInfoBar } from './TransactionInfoBar';
 
 
 function Home(): JSX.Element {
     const navigate = useNavigate();
     const [on_authorization, setOn_authorization] = React.useState(false);
 
-//! spustenie authorizačného modulu...........
-    React.useEffect(() => { 
+    //! spustenie authorizačného modulu...........
+    React.useEffect(() => {
         authoriz_mod();
     }, []);
     async function authoriz_mod() {
@@ -28,20 +29,20 @@ function Home(): JSX.Element {
         }
     };
 
-    
- /*    const handleSubmit = async (event: any) => {
-        event.preventDefault();
-        const current_URL = `/fxb/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`
-        navigate(current_URL)
-        fetch(`${API_URL}${current_URL}`, {
-            method: 'GET'
-        }).then(response => response.json()) // Prečítaj JSON telo odpovede
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => console.error("Error:", error));
-    }
- */
+
+    /*    const handleSubmit = async (event: any) => {
+           event.preventDefault();
+           const current_URL = `/fxb/home?dialogVZ=${encodeURIComponent(VZNumber)}&dialogOP=${encodeURIComponent(OPNumber)}`
+           navigate(current_URL)
+           fetch(`${API_URL}${current_URL}`, {
+               method: 'GET'
+           }).then(response => response.json()) // Prečítaj JSON telo odpovede
+               .then(data => {
+                   console.log(data);
+               })
+               .catch(error => console.error("Error:", error));
+       }
+    */
 
     return (
         <div className='content_app'>
@@ -72,14 +73,14 @@ function Home(): JSX.Element {
                                         <MainValue />
                                     </div>
                                     <div className='body_firstBlock'>
-                                        <Transaction /> 
+                                        <Transaction />
                                     </div>
                                     <div className='body_secondBlock'>
                                         <ListTransaction />
                                     </div>
                                 </div>
                                 <div className='body_InfoBlock'>
-                                    vdsvsdv
+                                    <TransactionInfoBar />
                                 </div>
                             </div>
                         </div>
