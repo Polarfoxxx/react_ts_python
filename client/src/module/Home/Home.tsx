@@ -50,6 +50,7 @@ function Home(): JSX.Element {
                 on_authorization ?
                     (
                         <div className='content_finances'>
+                            {/* header.....................................  */}
                             <div className='header_content'>
                                 <div className='header_logout'>
                                     <LogOut />
@@ -67,7 +68,9 @@ function Home(): JSX.Element {
                                     </h3>
                                 </div>
                             </div>
+                            {/* body......................................  */}
                             <div className='body_finances'>
+                                {/* body one */}
                                 <div className='body_transaction'>
                                     <div className='body_mainBlock'>
                                         <MainValue />
@@ -79,6 +82,7 @@ function Home(): JSX.Element {
                                         <ListTransaction />
                                     </div>
                                 </div>
+                                {/* body two */}
                                 <div className='body_InfoBlock'>
                                     <TransactionInfoBar />
                                 </div>

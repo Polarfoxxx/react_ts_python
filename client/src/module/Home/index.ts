@@ -4,3 +4,4 @@ export * from "./MainValue";
 export * from "./Transaction";
 export * from "./Transaction";
 export * from "./TransactionInfoBar";
+export * from "./OptionsTransaction";

@@ -2,7 +2,7 @@ import React from "react";
 import { GraphOne, GraphTwo } from "./";
 import "./transactionInfoBar_style.css";
 
-function TransactionInfoBar() {
+function TransactionInfoBar(): JSX.Element {
     return (
         <div className="transaction-info-bar">
             <div className="transaction-info-bar__one">
