@@ -59,6 +59,15 @@ async def create_transaction(transaction: Transaction, request: Request):
 async def current_ballances(request: Request):
     return current_ballance(request)
 
+#?context...............
+class AreaValue(BaseModel):
+    value: int
+@app.post("fxb/context/transaction_show_area")
+async def transaction_show_area(areaValue: AreaValue, request: Request):
+    app_context.set_dialog(areaValue)
+    return {"status": "ok", "dialog": areaValue}
+
+
 
 #!cookie.......................................
 @app.get("/cookie/delete")

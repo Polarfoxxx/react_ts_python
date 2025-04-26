@@ -1,0 +1,1 @@
+export { default as setAreaTransaction } from "./set_area_transaction";

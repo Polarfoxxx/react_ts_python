@@ -13,7 +13,6 @@ async function read_Transaction(): Promise<Array<Transaction_model>> {
       },
       withCredentials: true,
     });
-
     return response.data;
   } catch (error) {
     console.error("Chyb")
