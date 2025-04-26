@@ -23,10 +23,13 @@ export default class OptionsTransaction { // Class representing a transaction UI
       console.log(description); // Log the value to the console
 
       if (description === null && typeof description === "string") return; // If the description is null, exit the function
-      setAreaTransaction(Number(description)).then((result) => {
-        if (result === "success") return; // Call the API function with the description as a number
+      try {
+        setAreaTransaction(Number(description)).then((result) => {
+          if (result === "success") return;
+        })
+      } catch (error) {
         alert("Error"); // If the API call fails, show an alert
-      })
+      }
     };
 
     return (
