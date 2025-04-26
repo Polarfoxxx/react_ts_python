@@ -1,5 +1,5 @@
 import React from 'react';
-import { create_Transaction, Type_for_new_transaction } from '../../../API';
+import { create_Transaction, Transaction_model } from '../../../API';
 import './newTransaction_style.css';
 import Content_app from '../../../../App';
 
@@ -12,8 +12,8 @@ function NewTransaction(): JSX.Element {
         const form = e.currentTarget;   //! Get the form element
         const formData = new FormData(form); //! Create a new FormData object    
         const data = Object.fromEntries(formData); //! Convert formData to an object
-        const new_data: Type_for_new_transaction = {
-            type_trns: data.type_trns as string,
+        const new_data: Transaction_model = {
+            type_trns: data.type_trns as "deduction" | "addition",
             value_trns: Number(data.value_trns),
             name_event: data.name_trns as string,
             create_time: data.create_time as string,

@@ -59,13 +59,15 @@ async def create_transaction(transaction: Transaction, request: Request):
 async def current_ballances(request: Request):
     return current_ballance(request)
 
-#?context...............
+#?context..................................
 class AreaValue(BaseModel):
-    value: int
-@app.post("fxb/context/transaction_show_area")
-async def transaction_show_area(areaValue: AreaValue, request: Request):
-    app_context.set_dialog(areaValue)
-    return {"status": "ok", "dialog": areaValue}
+    area: int
+    type: str
+@app.post("/fxb/context/transaction_show_area")
+async def transaction_show_areas(areaValue: AreaValue, request: Request):
+    print(areaValue)
+    app_context.set_dialog(areaValue,request)
+    return {"message": "Area value set successfully", "status": "ok"}
 
 
 

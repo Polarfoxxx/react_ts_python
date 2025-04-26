@@ -1,4 +1,6 @@
+import { Transaction_model } from "./module/API";
+
 export interface MainContextType {
-    mainData: Array<any> | undefined; 
-    setMainData: React.Dispatch<React.SetStateAction<any>>; 
+    mainData: Array<Transaction_model> | undefined;
+    setMainData: React.Dispatch<React.SetStateAction<Array<Transaction_model>>>;
 }

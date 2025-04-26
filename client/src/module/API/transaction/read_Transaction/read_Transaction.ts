@@ -1,5 +1,5 @@
 import { API_URL } from "../../../shared";
-import { Transaction_model } from "./type";
+import { Transaction_model } from "../create_Transaction";
 import axios from "axios";
 
 

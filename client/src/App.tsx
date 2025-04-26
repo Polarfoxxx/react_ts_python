@@ -3,19 +3,20 @@ import './App.css';
 import { WelcomePage, Home } from './module';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { MainContextType } from './types';
+import { Transaction_model } from './module/API';
 
 
 //! Definuj kontext pre hlavný kontext
 const mainContext = React.createContext<MainContextType>({
   mainData: [],
-  setMainData: (data: any) => [],
+  setMainData: () => [],
 });
 
 
 function App(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
-  const [mainData, setMainData] = React.useState(undefined);
+  const [mainData, setMainData] = React.useState<Transaction_model[]>([]);
 
 
   React.useEffect(() => {

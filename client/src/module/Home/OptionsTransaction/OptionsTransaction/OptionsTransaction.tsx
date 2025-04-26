@@ -20,11 +20,12 @@ export default class OptionsTransaction { // Class representing a transaction UI
       e.preventDefault(); // Prevent the default form submission behavior
       const formData = new FormData(e.currentTarget); // Create a FormData object from the form
       const description = formData.get("description"); // Get the value of the input field  
-      console.log(description); // Log the value to the console
-
-      if (description === null && typeof description === "string") return; // If the description is null, exit the function
+      const value_area = Number(description); // Convert the value to a number
+      console.log(typeof value_area); // Log the value to the console
+      
+      if (value_area === null && typeof value_area === "string") return; // If the description is null, exit the function
       try {
-        setAreaTransaction(Number(description)).then((result) => {
+        setAreaTransaction(value_area).then((result) => {
           if (result === "success") return;
         })
       } catch (error) {
