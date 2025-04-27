@@ -8,13 +8,6 @@ function ListTransaction(): JSX.Element {
   const main_Context = React.useContext(Content_app.mainContext);
 
 
-  React.useEffect(() => {
-    read_Transaction().then(data => {
-      main_Context.setMainData(data);
-    });
-  }, []);
-
-
 
   return (
     <div className='transaction_list'>

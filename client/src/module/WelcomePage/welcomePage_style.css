@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: start;
     background-image: url("../../../public/img/welcomeImg.jpg");
-    background-position: right -10px top 0px
+    background-position: center
 }
 
 .welcome_page .welcomePage_form{

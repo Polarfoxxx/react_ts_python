@@ -9,11 +9,14 @@ import { authorizationModule } from '../shared/authorizationModule';
 import "./home_style.css";
 import { MainValue } from './MainValue';
 import { TransactionInfoBar } from './TransactionInfoBar';
+import { read_Transaction } from '../API/transaction';
+import Content_app from '../../App';
 
 
 function Home(): JSX.Element {
     const navigate = useNavigate();
     const [on_authorization, setOn_authorization] = React.useState(false);
+    const main_Context = React.useContext(Content_app.mainContext);
 
     //! spustenie authorizačného modulu...........
     React.useEffect(() => {
@@ -28,6 +31,17 @@ function Home(): JSX.Element {
             setOn_authorization(true);
         }
     };
+
+    //! načitanie dat z db a nastavenie do kontextu...........
+    React.useEffect(() => {
+        read_Transaction().then(data => {
+            main_Context.setMainData(data);
+        });
+    }, []);
+
+
+
+
 
 
     /*    const handleSubmit = async (event: any) => {

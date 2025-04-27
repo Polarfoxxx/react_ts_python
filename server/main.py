@@ -65,7 +65,6 @@ class AreaValue(BaseModel):
     type: str
 @app.post("/fxb/context/transaction_show_area")
 async def transaction_show_areas(areaValue: AreaValue, request: Request):
-    print(areaValue)
     app_context.set_dialog(areaValue,request)
     return {"message": "Area value set successfully", "status": "ok"}
 
