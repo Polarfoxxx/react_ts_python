@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../../shared';
 import { LoadSpinner } from '../../shared';
 import './loginPage_style.css';
+import logIn from '../../API/authentication/logIn';
 
 
 function LoginForm(): JSX.Element {
@@ -14,20 +14,11 @@ function LoginForm(): JSX.Element {
         event.preventDefault();
         if (cardNumber.trim() !== '') {
             setLoginSpinnerShow(true);
-            fetch(`${API_URL}/fxb/welcome?dialog=${encodeURIComponent(cardNumber)}`, {
-                method: "GET",
-                credentials: "include",  // Povolenie cookies
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }).then(response => response.json()) // Prečítaj JSON telo odpovede
-                .then(data => {
-                    console.log(data);
-                    if (data.findNumber === "true") {
+            logIn(Number(cardNumber)) // Zavolaj funkciu logIn s číslom karty
+                .then(response => {
+                    if (response === "success") {
                         setLoginSpinnerShow(false);
                         navigate('/fxb/home');
-                    } else {
-                        alert('Číslo sa nenašlo.');
                     }
                 })
                 .catch(error => console.error("Error:", error));
@@ -41,7 +32,7 @@ function LoginForm(): JSX.Element {
             <div className='loginForm__content'>
                 <h2>
                     You write the cardNumber
-                    </h2>
+                </h2>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"

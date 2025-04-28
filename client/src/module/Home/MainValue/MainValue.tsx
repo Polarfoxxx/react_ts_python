@@ -21,20 +21,24 @@ function MainValue(): JSX.Element {
 
     return (
         <div className="main-value">
-            <div className="main-value__header">
-                <h1 className="main-value__title">
-                    My ballance
-                </h1>
-            </div>
-            <div className="main-value__content">
-                <div className="main-value__value">
-                    <h2>
-                        {show_ballance}
-                    </h2>
+            <div className="main-value__mainWindow">
+                <div className="main-value__header">
+                    <h1 className="main-value__title">
+                        My ballance
+                    </h1>
                 </div>
-                <span>
-                    €
-                </span>
+                <div className="main-value__content">
+                    <div className="main-value__sign">
+                        <h3>
+                            €
+                        </h3>
+                    </div>
+                    <div className="main-value__value">
+                        <h2>
+                            {show_ballance}
+                        </h2>
+                    </div>
+                </div>
             </div>
             <div className="main-value__footer">
                 <div className="main_value_footer_block_one">
