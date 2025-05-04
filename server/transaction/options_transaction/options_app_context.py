@@ -25,16 +25,14 @@ class AppContext:
             return
         options = logined_user_object.get("options", {})
 
-        # Prepíš hodnotu "transaction_area"
+        #! Prepíš hodnotu "transaction_area"
         options["transaction_area"] = 12345  # <- nové číslo, ktoré chceš nastaviť
 
-        # Aktualizuj dokument v databáze
+        #! Aktualizuj dokument v databáze
         mongoo_connection.update_one(
             {"cardNumber": user_logined},  # filter
             {"$set": {"options.transaction_area": options["transaction_area"]}}  # aktualizácia
         )
-
-
 
 
     def get_dialog(self) -> dict:

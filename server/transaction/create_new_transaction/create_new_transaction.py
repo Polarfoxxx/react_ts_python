@@ -25,6 +25,7 @@ def create_new_transaction(newTransaction: dict, request: Request):
     
 
     create_new_transaction = {
+    "id": newTransaction["type_trns"] + str(newTransaction["value_trns"]) + newTransaction["name_event"] + newTransaction["create_time"],
     "type_trns": newTransaction["type_trns"],
     "value_trns": newTransaction["value_trns"],
     "name_event": newTransaction["name_event"],
@@ -36,6 +37,7 @@ def create_new_transaction(newTransaction: dict, request: Request):
     schema = {
         "type": "object",
         "properties": {
+            "id": {"type": "string"},
             "type_trns": {"type": "string"},
             "value_trns": {"type": "integer", "minimum": 0},
             "name_event": {"type": "string"},
