@@ -14,7 +14,7 @@ function ItemInTransactionList(props: PropsForItemInTransactionList): JSX.Elemen
 
   const handleDeleteTransacton = React.useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     console.log('delete transaction', transaction.id);
-    
+
   }, []);
 
 

@@ -59,6 +59,13 @@ async def create_transaction(transaction: Transaction, request: Request):
 async def current_ballances(request: Request):
     return current_ballance(request)
 
+class Del_Transaction(BaseModel):
+    transaction_id: str
+@app.delete("/fxb/transaction_delete")
+async def transaction_delete(delete_transaction: Del_Transaction, request: Request):
+    return delete_transaction(delete_transaction, request)
+
+
 #?context..................................
 class AreaValue(BaseModel):
     area: int

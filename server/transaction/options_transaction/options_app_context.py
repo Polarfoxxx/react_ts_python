@@ -26,7 +26,7 @@ class AppContext:
         options = logined_user_object.get("options", {})
 
         #! Prepíš hodnotu "transaction_area"
-        options["transaction_area"] = 12345  # <- nové číslo, ktoré chceš nastaviť
+        options["transaction_area"] = self.areaValue  # <- nové číslo, ktoré chceš nastaviť
 
         #! Aktualizuj dokument v databáze
         mongoo_connection.update_one(
